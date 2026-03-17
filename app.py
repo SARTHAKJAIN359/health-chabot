@@ -11,7 +11,7 @@ app.secret_key = os.environ.get("FLASK", "key")
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
     # Set your API key here if not set in environment
-    GEMINI_API_KEY = "AIzaSyARoXNINvkWAqgPxUCLlzlN-uhkt7fGb-Y"  # <-- Place your API key here
+    GEMINI_API_KEY = ""  # <-- Place your API key here
 
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
