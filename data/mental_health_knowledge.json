@@ -200,4 +200,154 @@
     "question": "How can I help someone who says they want to die?",
     "answer": "Stay calm, listen without judgment, and take them seriously. Encourage them to talk to a counselor or call a suicide helpline. If they’re in immediate danger, don’t leave them alone — get emergency help right away."
   }
+  {
+    "id": 41,
+    "question": "What is emotional regulation?",
+    "answer": "Emotional regulation is the ability to manage and respond to emotional experiences in a healthy way. Techniques include identifying emotions, pausing before reacting, deep breathing, and reframing negative thoughts. Therapy like DBT is especially helpful for improving emotional regulation."
+  },
+  {
+    "id": 42,
+    "question": "How do I deal with loneliness?",
+    "answer": "Loneliness can be addressed by reaching out to friends or family, joining community groups or clubs, volunteering, practicing self-compassion, and seeking therapy. Even small social interactions can help. Online communities can also provide connection when in-person isn't possible."
+  },
+  {
+    "id": 43,
+    "question": "What is DBT therapy?",
+    "answer": "Dialectical Behavior Therapy (DBT) is a type of cognitive-behavioral therapy that focuses on teaching skills in four areas: mindfulness, distress tolerance, emotional regulation, and interpersonal effectiveness. It is especially effective for borderline personality disorder, self-harm, and emotional dysregulation."
+  },
+  {
+    "id": 44,
+    "question": "How can I stop negative thoughts?",
+    "answer": "To manage negative thoughts, try cognitive restructuring (challenging and reframing thoughts), mindfulness (observing thoughts without judgment), journaling, thought-stopping techniques, and replacing negative self-talk with compassionate statements. CBT therapy provides structured tools for this."
+  },
+  {
+    "id": 45,
+    "question": "What is a panic disorder?",
+    "answer": "Panic disorder involves recurrent unexpected panic attacks — sudden surges of intense fear with physical symptoms like racing heart, shortness of breath, and dizziness. Treatment includes CBT, breathing techniques, medication, and gradual exposure to feared situations."
+  },
+  {
+    "id": 46,
+    "question": "How do I set healthy boundaries?",
+    "answer": "Setting healthy boundaries involves identifying your limits, communicating them clearly and calmly, being consistent, and not feeling guilty for protecting your wellbeing. Boundaries are essential in relationships, work, and personal life to prevent burnout and resentment."
+  },
+  {
+    "id": 47,
+    "question": "What is the impact of trauma on mental health?",
+    "answer": "Trauma can cause PTSD, depression, anxiety, trust issues, emotional numbness, and physical symptoms. It rewires the brain's stress response. Healing is possible through trauma-informed therapy such as EMDR, CBT, somatic therapy, and strong social support."
+  },
+  {
+    "id": 48,
+    "question": "What is EMDR therapy?",
+    "answer": "Eye Movement Desensitization and Reprocessing (EMDR) is a therapy used to treat trauma and PTSD. It involves recalling distressing memories while following bilateral stimulation (like eye movements), helping the brain reprocess and reduce the emotional impact of traumatic memories."
+  },
+  {
+    "id": 49,
+    "question": "How does social media affect mental health?",
+    "answer": "Excessive social media use is linked to increased anxiety, depression, loneliness, poor body image, and sleep disruption. Setting time limits, curating your feed, avoiding comparison, and taking regular digital detoxes can help protect your mental wellbeing."
+  },
+  {
+    "id": 50,
+    "question": "What is body dysmorphic disorder?",
+    "answer": "Body Dysmorphic Disorder (BDD) involves obsessive focus on perceived flaws in one's appearance that others may not notice. It causes significant distress and interferes with daily life. CBT and medication are effective treatments."
+  },
+  {
+    "id": 51,
+    "question": "How can I help myself during a depressive episode?",
+    "answer": "During a depressive episode, try to maintain basic routines (sleep, eating, hygiene), take small achievable steps, reach out to a trusted person, limit isolation, avoid major decisions, and contact a mental health professional. Be gentle with yourself — recovery takes time."
+  },
+  {
+    "id": 52,
+    "question": "What is the difference between a psychologist and a psychiatrist?",
+    "answer": "A psychologist provides talk therapy and psychological assessments but generally cannot prescribe medication. A psychiatrist is a medical doctor who can prescribe medication and also provides therapy. Both play important roles in mental health treatment."
+  },
+  {
+    "id": 53,
+    "question": "How does alcohol affect mental health?",
+    "answer": "Alcohol is a depressant that can worsen anxiety, depression, and sleep problems. Short-term use may reduce inhibitions, but long-term heavy use increases the risk of mental health disorders, dependency, and cognitive decline. Reducing alcohol intake often improves mood and sleep."
+  },
+  {
+    "id": 54,
+    "question": "What is exposure therapy?",
+    "answer": "Exposure therapy is a behavioral treatment where individuals gradually face feared situations or objects in a safe environment. It is highly effective for phobias, OCD, PTSD, and social anxiety by reducing avoidance and desensitizing fear responses over time."
+  },
+  {
+    "id": 55,
+    "question": "How can I support my own mental health daily?",
+    "answer": "Daily mental health habits include regular exercise, quality sleep, balanced nutrition, social connection, mindfulness or meditation, limiting alcohol and screen time, journaling, setting boundaries, and engaging in activities that bring joy and meaning."
+  },
+  {
+    "id": 56,
+    "question": "What is emotional abuse?",
+    "answer": "Emotional abuse involves patterns of behavior that control, manipulate, demean, or isolate a person. Signs include constant criticism, gaslighting, humiliation, threats, and isolation. It causes deep psychological harm and seeking help from a counselor or support line is important."
+  },
+  {
+    "id": 57,
+    "question": "What is neurodiversity?",
+    "answer": "Neurodiversity refers to natural variations in how human brains function and process information. Conditions such as ADHD, autism, dyslexia, and dyspraxia are considered part of neurodiversity. Embracing neurodiversity promotes acceptance and appropriate support rather than stigma."
+  },
+  {
+    "id": 58,
+    "question": "How do I manage work-related stress?",
+    "answer": "Managing work stress includes setting clear boundaries between work and personal time, prioritizing tasks, taking regular breaks, communicating with your manager about workload, practicing relaxation techniques, and seeking support if burnout develops."
+  },
+  {
+    "id": 59,
+    "question": "What is the connection between gut health and mental health?",
+    "answer": "The gut-brain axis links digestive health to mental wellbeing. A healthy gut microbiome supports serotonin production, mood regulation, and stress response. A diet rich in fiber, fermented foods, and probiotics can positively impact mental health."
+  },
+  {
+    "id": 60,
+    "question": "How can I build better habits for mental health?",
+    "answer": "Build mental health habits by starting small (just 5 minutes of meditation or a short walk), stacking habits onto existing routines, tracking progress, celebrating small wins, and being patient. Consistency matters more than perfection."
+  },
+  {
+    "id": 61,
+    "question": "What is alexithymia?",
+    "answer": "Alexithymia is a condition where a person has difficulty identifying and describing their own emotions. It is common in autism, PTSD, and depression. Therapy, journaling, and emotional literacy exercises can help people with alexithymia better understand their feelings."
+  },
+  {
+    "id": 62,
+    "question": "How do I talk to my family about my mental health?",
+    "answer": "Choose a calm, private moment. Use 'I' statements to express how you feel without blame. Be specific about what support you need. Educate them if they are unfamiliar with mental health. Consider involving a therapist to facilitate the conversation if needed."
+  },
+  {
+    "id": 63,
+    "question": "What is compassion fatigue?",
+    "answer": "Compassion fatigue is emotional exhaustion that results from caring for others in distress — common among caregivers, healthcare workers, and counselors. Symptoms include emotional numbness, cynicism, and burnout. Self-care, supervision, and peer support are essential."
+  },
+  {
+    "id": 64,
+    "question": "What are eating disorders?",
+    "answer": "Eating disorders include anorexia nervosa, bulimia nervosa, and binge eating disorder. They involve unhealthy relationships with food, body image, and weight. They are serious mental health conditions requiring professional treatment including therapy and medical support."
+  },
+  {
+    "id": 65,
+    "question": "How can I cope with a breakup or relationship loss?",
+    "answer": "Coping with a breakup involves allowing yourself to grieve, leaning on supportive friends, maintaining routines, avoiding contact if needed, focusing on self-growth, and seeking therapy if the pain is overwhelming. Healing takes time and is not linear."
+  },
+  {
+    "id": 66,
+    "question": "What is dissociation?",
+    "answer": "Dissociation is a mental process where a person feels disconnected from their thoughts, feelings, surroundings, or identity. It ranges from mild (daydreaming) to severe (dissociative identity disorder). It is often linked to trauma and is treatable with therapy."
+  },
+  {
+    "id": 67,
+    "question": "How does nature help mental health?",
+    "answer": "Spending time in nature reduces cortisol (stress hormone) levels, lowers blood pressure, improves mood, and increases feelings of awe and connection. Even short walks in green spaces have measurable mental health benefits. Forest bathing and outdoor mindfulness are especially effective."
+  },
+  {
+    "id": 68,
+    "question": "What is psychosis?",
+    "answer": "Psychosis involves a loss of contact with reality, including hallucinations (seeing or hearing things that aren't there) and delusions (false beliefs). It can be a symptom of schizophrenia, bipolar disorder, or severe depression. It is treatable with medication and therapy."
+  },
+  {
+    "id": 69,
+    "question": "How can creativity help with mental health?",
+    "answer": "Creative activities like art, music, writing, and dance provide emotional expression, reduce stress, improve focus, and boost self-esteem. Art therapy and music therapy are recognized therapeutic modalities used in mental health treatment."
+  },
+  {
+    "id": 70,
+    "question": "What mental health resources are available in India?",
+    "answer": "In India, free mental health resources include: iCall (9152987821), Vandrevala Foundation (1860-2662-345, 24/7), Tele MANAS (14416), AASRA (91-9820466626), and iCall online counseling. Many hospitals also offer free or subsidized outpatient psychiatric services."
+  }
 ]
