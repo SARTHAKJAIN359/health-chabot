@@ -2,7 +2,7 @@ services:
   - type: web
     name: mindspace-chatbot
     runtime: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install -r requirements.txt && python -c "import nltk; nltk.download('punkt'); nltk.download('averaged_perceptron_tagger')"
     startCommand: gunicorn app:app
     envVars:
       - key: GEMINI_API_KEY
