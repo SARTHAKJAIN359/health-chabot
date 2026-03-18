@@ -3,4 +3,3 @@ google-genai
 scikit-learn
 gunicorn
 textblob
-numpy
