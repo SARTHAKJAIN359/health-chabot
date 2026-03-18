@@ -7,7 +7,7 @@ from rag_model import save_embeddings, answer_query
 app = Flask(__name__, static_folder="static", template_folder="templates")
 app.secret_key = os.environ.get("FLASK", "key")
 
-# Configure Gemini API — set GEMINI_API_KEY as an environment variable, never hardcode it
+
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 if GEMINI_API_KEY:
