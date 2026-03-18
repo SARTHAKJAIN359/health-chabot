@@ -7,12 +7,12 @@ from rag_model import save_embeddings, answer_query
 app = Flask(__name__, static_folder="static", template_folder="templates")
 app.secret_key = os.environ.get("FLASK", "key")
 
-
+# Configure Gemini API — set GEMINI_API_KEY as an environment variable, never hardcode it
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
-    gemini_model = genai.GenerativeModel("gemini-2.5-flash")
+    gemini_model = genai.GenerativeModel("gemini-2.0-flash-lite-001")
     print('✅ Gemini AI enabled (using the latest flash model)')
 else:
     gemini_model = None
@@ -40,7 +40,8 @@ def index():
 def chat():
     data = request.get_json(silent=True) or {}
     user_input = (data.get("input") or "").strip()
-    selected_mode = data.get("mode", "hybrid")  # Default to hybrid
+    selected_mode = data.get("mode", "hybrid")
+    country = (data.get("country") or "India").strip()
     
     if not user_input:
         return jsonify({"response": "Please enter a message."})
@@ -83,7 +84,9 @@ def chat():
             })
         
         try:
-            prompt = f"""You are MindSpace, a compassionate mental health support assistant. 
+            prompt = f"""You are MindSpace, a compassionate mental health support assistant.
+
+The user is based in {country}. Where relevant, tailor your response to their local context — such as culturally appropriate coping strategies, local helplines, or region-specific resources. If country context isn't relevant to the question, respond normally.
 
 Provide a warm, empathetic response to this mental health question. Keep it concise (2-3 paragraphs).
 
@@ -119,7 +122,9 @@ Response:"""
         if gemini_model:
             try:
                 if context:
-                    prompt = f"""You are MindSpace, a compassionate mental health support assistant. 
+                    prompt = f"""You are MindSpace, a compassionate mental health support assistant.
+
+The user is based in {country}. Where relevant, tailor your response to their local context — such as culturally appropriate coping strategies, local helplines, or region-specific resources. If country context isn't relevant to the question, respond normally.
 
 Provide a warm, empathetic response to this question. Keep it concise (2-3 paragraphs). Use the reference information below to ground your response.
 
@@ -130,7 +135,9 @@ User Question: {user_input}
 
 Response:"""
                 else:
-                    prompt = f"""You are MindSpace, a compassionate mental health support assistant. 
+                    prompt = f"""You are MindSpace, a compassionate mental health support assistant.
+
+The user is based in {country}. Where relevant, tailor your response to their local context — such as culturally appropriate coping strategies, local helplines, or region-specific resources. If country context isn't relevant to the question, respond normally.
 
 Provide a warm, empathetic response to this mental health question. Keep it concise (2-3 paragraphs).
 
