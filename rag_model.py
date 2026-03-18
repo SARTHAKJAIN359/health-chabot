@@ -3,7 +3,6 @@ import os
 import json
 import pickle
 import re
-import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -16,70 +15,51 @@ KB_CACHE_PATH = os.path.join(ARTIFACTS_DIR, "kb_cache.pkl")
 
 os.makedirs(ARTIFACTS_DIR, exist_ok=True)
 
-# --- Spell correction ---
+# Spell correction
 try:
     from textblob import TextBlob
     SPELL_CORRECTION = True
 except ImportError:
     SPELL_CORRECTION = False
 
-# --- Synonym map: expands user query with related terms ---
+# Synonym expansion — maps user words to related KB terms
 SYNONYMS = {
-    "sad": "sad depression depressed unhappy low mood",
-    "depress": "depression depressed sad hopeless low mood",
-    "anxious": "anxiety anxious worried nervous stress",
+    "sad": "depression depressed unhappy low mood",
+    "depress": "depression depressed sad hopeless",
+    "anxious": "anxiety anxious worried nervous panic",
     "anxiety": "anxiety anxious worried nervous panic stress",
-    "stress": "stress stressed burnout overwhelmed pressure",
-    "burnout": "burnout exhausted tired overwhelmed stress recover",
-    "tired": "tired exhausted fatigue burnout energy",
-    "sleep": "sleep insomnia rest tired fatigue",
-    "panic": "panic attack anxiety fear heart racing",
-    "trauma": "trauma ptsd flashback abuse past",
-    "lonely": "lonely loneliness isolated alone connection",
-    "anger": "anger angry irritable mood emotional",
-    "grief": "grief loss mourning bereavement death sad",
-    "self harm": "self harm hurt cutting injury",
-    "suicide": "suicide suicidal crisis helpline",
-    "ocd": "ocd obsessive compulsive thoughts rituals",
-    "adhd": "adhd attention focus hyperactivity",
-    "bipolar": "bipolar mood swings mania depression",
-    "therapy": "therapy therapist counseling cbt treatment",
-    "medication": "medication medicine psychiatrist treatment",
-    "eat": "eating disorder anorexia bulimia food body",
-    "boundary": "boundaries limits healthy relationships",
+    "stress": "stress burnout overwhelmed pressure",
+    "burnout": "burnout exhausted overwhelmed stress signs recover",
+    "tired": "tired exhausted fatigue burnout",
+    "sleep": "sleep insomnia rest tired improve",
+    "panic": "panic attack anxiety breathing grounding",
+    "trauma": "trauma ptsd flashback",
+    "lonely": "loneliness lonely isolated connection social",
+    "grief": "grief loss coping mourning",
+    "ocd": "obsessive compulsive disorder rituals thoughts",
+    "adhd": "attention deficit hyperactivity disorder focus",
+    "bipolar": "bipolar disorder mood swings mania",
+    "therapy": "therapy cbt counseling treatment",
+    "boundary": "boundaries healthy relationships limit",
     "mindful": "mindfulness meditation present calm",
-    "breathe": "breathing breath calm relax anxiety",
-    "journal": "journaling writing emotions thoughts",
-    "exercise": "exercise physical activity mood mental health",
-    "diet": "diet nutrition food mental health brain",
-    "social media": "social media screen time comparison anxiety",
-    "relationship": "relationship breakup loss grief cope",
-    "work": "work stress burnout career job pressure",
-    "family": "family talk communicate support mental health",
-    "friend": "friend support helping struggling crisis",
+    "breathe": "breathing exercises calm anxiety",
+    "journal": "journaling writing emotions",
+    "exercise": "exercise physical activity mood",
     "negative": "negative thoughts cognitive cbt reframe",
-    "concentration": "concentration focus adhd attention",
-    "memory": "memory focus cognitive mental health",
-    "dissociat": "dissociation disconnect trauma ptsd",
-    "psychosis": "psychosis hallucination delusion schizophrenia",
-    "schizophrenia": "schizophrenia psychosis delusion hallucination",
-    "resilience": "resilience cope recover setback strength",
-    "confidence": "confidence self esteem worth value",
-    "esteem": "self esteem confidence worth value",
-    "grounding": "grounding technique anxiety panic present 5 senses",
-    "cbt": "cbt cognitive behavioral therapy negative thoughts",
-    "dbt": "dbt dialectical behavior therapy emotional regulation",
-    "emdr": "emdr trauma therapy ptsd processing",
-    "nature": "nature outdoors walk green mental health",
-    "creative": "creative art music therapy expression",
-    "gut": "gut health brain food diet mental health",
-    "neurodiver": "neurodiversity adhd autism dyslexia brain",
-    "compas": "compassion fatigue caregiver burnout empathy",
+    "esteem": "self esteem confidence worth",
+    "grounding": "grounding techniques anxiety 5 senses",
+    "dissociat": "dissociation disconnect trauma",
+    "resilience": "resilience cope recover setback",
+    "creative": "creativity art music therapy",
+    "work": "work stress burnout manage",
+    "family": "family talk communicate support",
+    "eat": "eating disorder anorexia bulimia food",
+    "social media": "social media anxiety depression comparison",
+    "relationship": "relationship breakup loss grief",
 }
 
 
 def expand_query(text):
-    """Add synonym expansions to improve TF-IDF matching."""
     lower = text.lower()
     extras = []
     for keyword, expansion in SYNONYMS.items():
@@ -110,17 +90,15 @@ def load_knowledge_base():
     for entry in kb:
         q = entry.get("question", "") or ""
         a = entry.get("answer", "") or ""
-        # Weight question 3x — the question is the best semantic signal
-        text = f"{q} {q} {q} {a}"
-        docs.append(normalize(text))
+        # Weight question 3x for better intent matching
+        docs.append(normalize(f"{q} {q} {q} {a}"))
     return kb, docs
 
 
 def save_embeddings():
     kb, docs = load_knowledge_base()
     vectorizer = TfidfVectorizer(
-        max_df=0.95,
-        min_df=1,
+        max_df=0.95, min_df=1,
         ngram_range=(1, 3),
         sublinear_tf=True,
         strip_accents='unicode',
@@ -151,21 +129,12 @@ def load_embeddings():
 
 def answer_query(query, top_k=1):
     kb, vectorizer, tfidf_matrix = load_embeddings()
-
-    # Step 1: spell correct
     corrected = correct_query(query)
-
-    # Step 2: expand with synonyms
     expanded = expand_query(corrected)
-
-    # Step 3: normalize
     clean = normalize(expanded)
-
-    # Step 4: TF-IDF similarity
     query_vec = vectorizer.transform([clean])
     scores = cosine_similarity(query_vec, tfidf_matrix).flatten()
-    best_indices = np.argsort(scores)[::-1][:top_k]
-
+    best_indices = scores.argsort()[::-1][:top_k]
     results = []
     for idx in best_indices:
         entry = kb[int(idx)]
@@ -174,6 +143,5 @@ def answer_query(query, top_k=1):
             "question": entry.get("question"),
             "answer": entry.get("answer"),
             "score": float(scores[idx]),
-            "corrected_query": corrected if corrected.lower() != query.lower() else None
         })
     return results
