@@ -1,21 +1,22 @@
 # app.py
 from flask import Flask, request, jsonify, render_template, session
 import os
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 from rag_model import save_embeddings, answer_query
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
 app.secret_key = os.environ.get("FLASK", "key")
 
-# Configure Gemini API — set GEMINI_API_KEY as an environment variable, never hardcode it
+# Configure Gemini API
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 if GEMINI_API_KEY:
-    genai.configure(api_key=GEMINI_API_KEY)
-    gemini_model = genai.GenerativeModel("gemini-2.5-flash")
-    print('✅ Gemini AI enabled (using the latest flash model)')
+    gemini_client = genai.Client(api_key=GEMINI_API_KEY)
+    GEMINI_MODEL = "gemini-2.5-flash"
+    print(f'✅ Gemini AI enabled ({GEMINI_MODEL})')
 else:
-    gemini_model = None
+    gemini_client = None
     print('⚠️  GEMINI_API_KEY not set - Gemini mode will be unavailable')
 
 # Ensure embeddings are prepared at startup
@@ -77,7 +78,7 @@ def chat():
 
     # MODE: Gemini Only
     elif selected_mode == "gemini":
-        if not gemini_model:
+        if not gemini_client:
             return jsonify({
                 "response": "Gemini mode is not available. Please set GEMINI_API_KEY or switch to RAG/Hybrid mode.",
                 "mode": "error"
@@ -94,7 +95,9 @@ User Question: {user_input}
 
 Response:"""
 
-            response = gemini_model.generate_content(prompt)
+            response = gemini_client.models.generate_content(
+                model=GEMINI_MODEL, contents=prompt
+            )
             
             return jsonify({
                 "response": response.text,
@@ -119,7 +122,7 @@ Response:"""
                 for r in kb_results[:2]
             ])
 
-        if gemini_model:
+        if gemini_client:
             try:
                 if context:
                     prompt = f"""You are MindSpace, a compassionate mental health support assistant.
@@ -145,7 +148,9 @@ User Question: {user_input}
 
 Response:"""
 
-                response = gemini_model.generate_content(prompt)
+                response = gemini_client.models.generate_content(
+                    model=GEMINI_MODEL, contents=prompt
+                )
                 
                 return jsonify({
                     "response": response.text,
