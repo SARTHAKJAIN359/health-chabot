@@ -54,6 +54,21 @@
             opacity: 0.9;
         }
 
+        /* Disclaimer Banner */
+        .disclaimer-banner {
+            background: #fff8e1;
+            border-bottom: 1px solid #ffe082;
+            color: #795548;
+            padding: 10px 20px;
+            font-size: 12.5px;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .disclaimer-banner strong {
+            color: #e65100;
+        }
+
         .mode-selector {
             background: white;
             padding: 15px 30px;
@@ -145,14 +160,8 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .message.user {
@@ -185,7 +194,7 @@
         .welcome-message {
             text-align: center;
             color: #6c757d;
-            padding: 40px 20px;
+            padding: 30px 20px;
         }
 
         .welcome-message h2 {
@@ -204,7 +213,7 @@
             border: 1px solid #b3d9ff;
             padding: 15px;
             border-radius: 10px;
-            margin: 20px 0;
+            margin: 15px 0;
             font-size: 14px;
             text-align: left;
         }
@@ -215,20 +224,28 @@
             color: #0066cc;
         }
 
-        .mode-info ul {
-            margin-left: 20px;
-            margin-top: 8px;
+        /* Disclaimer box inside welcome */
+        .disclaimer-box {
+            background: #fff3e0;
+            border: 1px solid #ffcc80;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 13px;
+            color: #6d4c41;
+            margin: 12px 0;
+            text-align: left;
+            line-height: 1.6;
         }
 
-        .mode-info li {
-            margin: 5px 0;
+        .disclaimer-box strong {
+            color: #bf360c;
         }
 
         .suggested-questions {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 10px;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .suggested-btn {
@@ -238,7 +255,7 @@
             color: #667eea;
             border-radius: 10px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             transition: all 0.3s ease;
             text-align: left;
         }
@@ -271,13 +288,12 @@
             border-radius: 25px;
             font-size: 15px;
             outline: none;
-            transition: all 0.3s ease;
-            background: #f8f9fa;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
         }
 
         #userInput:focus {
             border-color: #667eea;
-            background: white;
         }
 
         #sendBtn {
@@ -286,16 +302,16 @@
             color: white;
             border: none;
             border-radius: 25px;
+            cursor: pointer;
             font-size: 15px;
             font-weight: 600;
-            cursor: pointer;
             transition: all 0.3s ease;
-            white-space: nowrap;
+            min-width: 90px;
         }
 
         #sendBtn:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
         #sendBtn:disabled {
@@ -303,51 +319,70 @@
             cursor: not-allowed;
         }
 
+        /* Loading spinner */
+        .loading-spinner {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 20px;
+            background: white;
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 160px;
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 3px solid #e9ecef;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-spinner span {
+            font-size: 13px;
+            color: #6c757d;
+        }
+
+        /* Typing indicator (kept for fallback) */
         .typing-indicator {
             display: none;
+            gap: 5px;
             padding: 15px 20px;
             background: white;
             border-radius: 18px;
             border-bottom-left-radius: 4px;
-            max-width: 70px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .typing-indicator.show {
-            display: block;
+            display: flex;
         }
 
         .typing-indicator span {
-            display: inline-block;
             width: 8px;
             height: 8px;
-            background: #667eea;
             border-radius: 50%;
-            margin: 0 2px;
-            animation: bounce 1.4s infinite ease-in-out;
+            background: #adb5bd;
+            animation: typing 1.4s infinite;
         }
 
-        .typing-indicator span:nth-child(1) {
-            animation-delay: -0.32s;
-        }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
 
-        .typing-indicator span:nth-child(2) {
-            animation-delay: -0.16s;
-        }
-
-        @keyframes bounce {
-            0%, 80%, 100% {
-                transform: scale(0);
-                opacity: 0.5;
-            }
-            40% {
-                transform: scale(1);
-                opacity: 1;
-            }
+        @keyframes typing {
+            0%, 100% { transform: translateY(0); background: #adb5bd; }
+            50% { transform: translateY(-5px); background: #667eea; }
         }
 
         .mode-badge {
-            display: inline-block;
             font-size: 11px;
             padding: 4px 10px;
             border-radius: 12px;
@@ -369,6 +404,16 @@
         .mode-badge.hybrid {
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
+        }
+
+        /* Footer disclaimer inside chat */
+        .chat-footer-disclaimer {
+            text-align: center;
+            font-size: 11.5px;
+            color: #adb5bd;
+            padding: 6px 0 0 0;
+            border-top: 1px solid #e9ecef;
+            margin-top: 4px;
         }
 
         @media (max-width: 768px) {
@@ -404,6 +449,11 @@
             <p>Your safe space for mental health support</p>
         </div>
 
+        <!-- Top disclaimer -->
+        <div class="disclaimer-banner">
+            <strong>⚠️ Disclaimer:</strong> MindSpace is an informational tool only — it is <strong>not</strong> a substitute for professional mental health care. If you are in crisis, call <strong>Tele MANAS: 14416</strong> (India, free, 24/7).
+        </div>
+
         <div class="mode-selector">
             <label>AI Mode:</label>
             <div class="mode-options">
@@ -420,42 +470,52 @@
         </div>
 
         <div class="crisis-banner" id="crisisBanner">
-            <strong>⚠️ Crisis Support:</strong> If you're in immediate danger, please call 14416 (Tele MANAS).
+            <strong>⚠️ Crisis Support:</strong> If you're in immediate danger, please call <strong>14416 (Tele MANAS)</strong> — free, 24/7. You can also reach AASRA at <strong>91-9820466626</strong>.
         </div>
 
         <div class="chat-area" id="chatArea">
             <div class="welcome-message">
                 <h2>Welcome to MindSpace 💙</h2>
                 <p>I'm here to provide mental health information and support.</p>
-                
-                <div class="mode-info">
-                    <strong id="modeTitle">🚀 Hybrid Mode (Recommended)</strong>
-                    <div id="modeDescription">
-                        Combines AI intelligence with verified knowledge base for the best responses.
-                    </div>
+
+                <div class="disclaimer-box">
+                    <strong>Please note:</strong> MindSpace provides general mental health information only. It is not a licensed therapist or crisis service and cannot replace professional care. Always consult a qualified mental health professional for diagnosis or treatment.
                 </div>
 
-                <p style="margin-top: 15px;">Feel free to ask me anything about mental health, coping strategies, or wellness tips.</p>
-                
+                <div class="mode-info">
+                    <strong id="modeTitle">🚀 Hybrid Mode (Recommended)</strong>
+                    <div id="modeDescription">Combines AI intelligence with verified knowledge base for the best responses.</div>
+                </div>
+
+                <p style="margin-top: 10px;">Feel free to ask me anything about mental health, coping strategies, or wellness tips.</p>
+
                 <div class="suggested-questions">
-                    <button class="suggested-btn" onclick="askQuestion('What is depression?')">What is depression?</button>
-                    <button class="suggested-btn" onclick="askQuestion('How can I manage anxiety?')">How can I manage anxiety?</button>
-                    <button class="suggested-btn" onclick="askQuestion('What are grounding techniques?')">Grounding techniques</button>
-                    <button class="suggested-btn" onclick="askQuestion('How to improve sleep?')">Improve my sleep</button>
+                    <button class="suggested-btn" onclick="askQuestion('What is depression?')">💭 What is depression?</button>
+                    <button class="suggested-btn" onclick="askQuestion('How can I manage anxiety?')">😟 Managing anxiety</button>
+                    <button class="suggested-btn" onclick="askQuestion('What are grounding techniques?')">🌿 Grounding techniques</button>
+                    <button class="suggested-btn" onclick="askQuestion('How to improve sleep?')">😴 Improve my sleep</button>
+                    <button class="suggested-btn" onclick="askQuestion('How do I stop negative thoughts?')">🔄 Stop negative thoughts</button>
+                    <button class="suggested-btn" onclick="askQuestion('How do I deal with loneliness?')">🤝 Dealing with loneliness</button>
+                    <button class="suggested-btn" onclick="askQuestion('How can I support my own mental health daily?')">🌱 Daily mental health habits</button>
+                    <button class="suggested-btn" onclick="askQuestion('What mental health resources are available in India?')">🇮🇳 Resources in India</button>
                 </div>
             </div>
         </div>
 
         <div class="input-area">
             <div class="input-wrapper">
-                <input 
-                    type="text" 
-                    id="userInput" 
+                <input
+                    type="text"
+                    id="userInput"
                     placeholder="Type your message here..."
                     onkeypress="handleKeyPress(event)"
                 />
             </div>
             <button id="sendBtn" onclick="sendMessage()">Send</button>
+        </div>
+
+        <div class="chat-footer-disclaimer">
+            MindSpace is not a crisis service. In emergencies, call Tele MANAS: 14416 &nbsp;|&nbsp; AASRA: 91-9820466626
         </div>
     </div>
 
@@ -484,14 +544,8 @@
 
         function selectMode(mode) {
             currentMode = mode;
-            
-            // Update button styles
-            document.querySelectorAll('.mode-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
-            
-            // Update description
             const modeInfo = modeDescriptions[mode];
             document.getElementById('modeTitle').textContent = modeInfo.title;
             document.getElementById('modeDescription').textContent = modeInfo.desc;
@@ -522,31 +576,24 @@
             userInput.value = '';
             sendBtn.disabled = true;
 
-            showTypingIndicator();
+            showLoadingSpinner();
 
             try {
                 const response = await fetch('/chat', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ 
-                        input: message,
-                        mode: currentMode
-                    })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ input: message, mode: currentMode })
                 });
 
                 const data = await response.json();
-                
-                hideTypingIndicator();
+                hideLoadingSpinner();
 
                 if (data.is_crisis) {
                     crisisBanner.classList.add('show');
                 }
 
                 let botMessage = data.response;
-                
-                // Add mode badge
+
                 if (data.mode === 'gemini') {
                     botMessage += `<span class="mode-badge gemini">✨ Gemini AI</span>`;
                 } else if (data.mode === 'rag') {
@@ -560,7 +607,7 @@
                 addMessage(botMessage, 'bot');
 
             } catch (error) {
-                hideTypingIndicator();
+                hideLoadingSpinner();
                 addMessage('Sorry, there was an error processing your request. Please try again.', 'bot');
             }
 
@@ -571,36 +618,31 @@
         function addMessage(text, sender) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${sender}`;
-            
             const contentDiv = document.createElement('div');
             contentDiv.className = 'message-content';
             contentDiv.innerHTML = text;
-            
             messageDiv.appendChild(contentDiv);
             chatArea.appendChild(messageDiv);
-            
             chatArea.scrollTop = chatArea.scrollHeight;
         }
 
-        function showTypingIndicator() {
-            const indicator = document.createElement('div');
-            indicator.className = 'message bot';
-            indicator.id = 'typingIndicator';
-            
-            const typingDiv = document.createElement('div');
-            typingDiv.className = 'typing-indicator show';
-            typingDiv.innerHTML = '<span></span><span></span><span></span>';
-            
-            indicator.appendChild(typingDiv);
-            chatArea.appendChild(indicator);
+        function showLoadingSpinner() {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'message bot';
+            wrapper.id = 'loadingSpinner';
+
+            const spinner = document.createElement('div');
+            spinner.className = 'loading-spinner';
+            spinner.innerHTML = `<div class="spinner"></div><span>MindSpace is thinking…</span>`;
+
+            wrapper.appendChild(spinner);
+            chatArea.appendChild(wrapper);
             chatArea.scrollTop = chatArea.scrollHeight;
         }
 
-        function hideTypingIndicator() {
-            const indicator = document.getElementById('typingIndicator');
-            if (indicator) {
-                indicator.remove();
-            }
+        function hideLoadingSpinner() {
+            const el = document.getElementById('loadingSpinner');
+            if (el) el.remove();
         }
 
         userInput.focus();
