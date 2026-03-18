@@ -12,7 +12,7 @@ GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
-    gemini_model = genai.GenerativeModel("gemini-2.5-flash")
+    gemini_model = genai.GenerativeModel("gemini-2.0-flash-lite-001")
     print('✅ Gemini AI enabled (using the latest flash model)')
 else:
     gemini_model = None
@@ -59,7 +59,7 @@ def chat():
     if selected_mode == "rag":
         kb_results = answer_query(user_input, top_k=1)
         
-        if not kb_results or kb_results[0]['score'] < 0.2:
+        if not kb_results or kb_results[0]['score'] < 0.08:
             return jsonify({
                 "response": "Sorry, I couldn't find a relevant answer in the knowledge base. Try rephrasing or ask another question.",
                 "mode": "rag"
@@ -113,7 +113,7 @@ Response:"""
         kb_results = answer_query(user_input, top_k=3)
         context = ""
         
-        if kb_results and kb_results[0]['score'] > 0.2:
+        if kb_results and kb_results[0]['score'] > 0.08:
             context = "\n\n".join([
                 f"Reference: {r['question']}\n{r['answer']}" 
                 for r in kb_results[:2]
@@ -157,7 +157,7 @@ Response:"""
                 print(f"Gemini error in hybrid mode: {e}")
 
         # Fallback to RAG if Gemini fails or unavailable
-        if not kb_results or kb_results[0]['score'] < 0.2:
+        if not kb_results or kb_results[0]['score'] < 0.08:
             return jsonify({
                 "response": "Sorry, I couldn't find an answer. Try rephrasing or ask another question.",
                 "mode": "rag_fallback"
