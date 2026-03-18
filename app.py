@@ -7,11 +7,8 @@ from rag_model import save_embeddings, answer_query
 app = Flask(__name__, static_folder="static", template_folder="templates")
 app.secret_key = os.environ.get("FLASK", "key")
 
-# Configure Gemini API
+# Configure Gemini API — set GEMINI_API_KEY as an environment variable, never hardcode it
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-if not GEMINI_API_KEY:
-    # Set your API key here if not set in environment
-    GEMINI_API_KEY = ""  # <-- Place your API key here
 
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
@@ -110,7 +107,6 @@ Response:"""
 
     # MODE: Hybrid (RAG + Gemini)
     else:  # selected_mode == "hybrid"
-        # Get relevant context from knowledge base
         kb_results = answer_query(user_input, top_k=3)
         context = ""
         
@@ -120,7 +116,6 @@ Response:"""
                 for r in kb_results[:2]
             ])
 
-        # Use Gemini with context if available
         if gemini_model:
             try:
                 if context:
@@ -153,9 +148,8 @@ Response:"""
                 
             except Exception as e:
                 print(f"Gemini error in hybrid mode: {e}")
-                # Fall through to RAG-only fallback
 
-        # Fallback to RAG if Gemini fails in hybrid mode
+        # Fallback to RAG if Gemini fails or unavailable
         if not kb_results or kb_results[0]['score'] < 0.2:
             return jsonify({
                 "response": "Sorry, I couldn't find an answer. Try rephrasing or ask another question.",
